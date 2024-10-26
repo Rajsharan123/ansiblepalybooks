@@ -3,7 +3,7 @@
   hosts: build
   tasks:
     - name: Install python3-pip
-      ansible.builtin.yum:
+      ansible.builtin.apt:
         name: python3-pip
         state: present
       become: yes
@@ -44,9 +44,9 @@
         node: proxmox
         api_user: "root@pam"
         api_password: "{{ proxmox_pass }}"
-        api_host: "< Input IP Here >"
+        api_host: "10.10.1.10"
         api_port: 8006
-        pool: "< Input Pool Name if used >"
+        pool: "homelab"
         name: "{{ vm_name }}"
         state: started
 
@@ -54,14 +54,14 @@
       ansible.builtin.pause:
         seconds: 20
 
-- name: Set VM IP and Hostname
-  hosts: 172.16.1.200
-  tasks:
-    - name: Update IP
-      ansible.builtin.lineinfile:
-        path: /etc/sysconfig/network-scripts/ifcfg-ens18
-        regex: "IPADDR=172.16.1.200"
-        line: "IPADDR={{ new_IP }}"
+# - name: Set VM IP and Hostname
+#   hosts: 172.16.1.200
+#   tasks:
+#     - name: Update IP
+#       ansible.builtin.lineinfile:
+#         path: /etc/sysconfig/network-scripts/ifcfg-eth0
+#         regex: "IPADDR=172.16.1.200"
+#         line: "IPADDR={{ new_IP }}"
 
     - name: Update Hostname
       ansible.builtin.hostname:

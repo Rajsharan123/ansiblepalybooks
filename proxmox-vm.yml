@@ -1,0 +1,27 @@
+---
+- name: Create a Proxmox VM
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Create a new VM in Proxmox
+      community.general.proxmox:
+        api_user: "root@pam"
+        api_password: "{{ proxmox_pass }}"
+        api_host: "10.10.1.10"
+        node: "proxmox"
+        vmid: "{{ proxmox_vmid }}"  # Unique VM ID
+        state: present
+        acpi: 1
+        bios: seabios
+        cores: 2
+        memory: 2048
+        scsihw: virtio-scsi-pci
+        scsi0: local-lvm: "20"  # Disk size
+        net0: virtio,bridge=vmbr0  # Network interface
+        ostype: l26  # OS Type: l26 for Linux
+        boot: c
+        bootdisk: scsi0
+      register: create_vm_output
+
+    - name: Show VM creation result
+      debug:

@@ -35,9 +35,9 @@
         clone: "ubuntu-cloud"
         name: "{{ vm_name }}"
 
-    - name: wait 10 seconds
+    - name: wait 60 seconds
       ansible.builtin.pause:
-        seconds: 10
+        seconds: 60
 
     - name: Start VM
       community.general.proxmox_kvm:
@@ -50,9 +50,9 @@
         name: "{{ vm_name }}"
         state: started
 
-    - name: wait 20 seconds
+    - name: wait 60 seconds
       ansible.builtin.pause:
-        seconds: 20
+        seconds: 60
 
 # - name: Set VM IP and Hostname
 #   hosts: 172.16.1.200
@@ -71,6 +71,6 @@
       ansible.builtin.command: "init 6"
       ignore_errors: true
 
-    - name: Pause for 30 seconds to wait for reboot
+    - name: Pause for 60 seconds to wait for reboot
       ansible.builtin.pause:
-        seconds: "10"
+        seconds: "60"

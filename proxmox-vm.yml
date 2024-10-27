@@ -8,7 +8,7 @@
         api_user: "root@pam"
         api_password: "{{ proxmox_pass }}"
         api_host: "10.10.1.10"
-        node: "proxmox"
+        node: "pve"
         vmid: "{{ proxmox_vmid }}"  # Unique VM ID
         state: present
         acpi: 1
